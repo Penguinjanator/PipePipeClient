@@ -255,8 +255,9 @@ class PlayerUiModeController(private val player: Player) {
         val binding = player.binding
         binding.screenRotationButton.visibility =
             if (player.videoPlayerSelected()) View.VISIBLE else View.GONE
-        binding.lockButton.visibility =
-            if (player.videoPlayerSelected() && isFullscreen) View.VISIBLE else View.GONE
+        if (!player.videoPlayerSelected() || !isFullscreen) {
+            binding.lockButton.visibility = View.GONE
+        }
         binding.screenRotationButton.setImageDrawable(
             AppCompatResources.getDrawable(
                 player.context,

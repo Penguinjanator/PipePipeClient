@@ -146,6 +146,12 @@ class PlayerControlsVisibilityController(private val player: Player) {
 
     fun showHideShadow(show: Boolean, duration: Long) {
         val binding = player.binding
+        // The lock button lives outside the controls root (same spot as the unlock button)
+        // and follows the controls' visibility.
+        binding.lockButton.animate(
+            show && !isLocked && player.isFullscreen && player.videoPlayerSelected(),
+            duration, AnimationType.ALPHA, 0L, null
+        )
         binding.playbackControlsShadow.animate(show, duration, AnimationType.ALPHA, 0L, null)
         binding.playerTopShadow.animate(show, duration, AnimationType.ALPHA, 0L, null)
         binding.playerBottomShadow.animate(show, duration, AnimationType.ALPHA, 0L, null)
